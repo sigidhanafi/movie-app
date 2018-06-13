@@ -32,6 +32,18 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return sections[section]
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionTitle = sections[section]
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 40))
+        let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.bounds.width, height: 40))
+        label.textColor = UIColor.white
+        label.text = sectionTitle
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 16)
+        view.addSubview(label)
+        return view
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
