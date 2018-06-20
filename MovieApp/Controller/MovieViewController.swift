@@ -24,20 +24,27 @@ class MovieViewController: UIViewController {
     
         let view1 = Bundle.main.loadNibNamed("View", owner: self, options: nil)?.first as! UIView
         self.stackView.addArrangedSubview(view1)
+        view1.backgroundColor = UIColor.cyan
         view1.translatesAutoresizingMaskIntoConstraints = false
-        view1.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        view1.heightAnchor.constraint(equalToConstant: 250).isActive = true
         
         let view2 = UIView()
-        view2.backgroundColor = UIColor.blue
+        view2.backgroundColor = UIColor.white
         self.stackView.addArrangedSubview(view2)
         view2.translatesAutoresizingMaskIntoConstraints = false
-        view2.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        view2.heightAnchor.constraint(equalToConstant: 250).isActive = true
         
         let view3 = UIView()
-        view3.backgroundColor = UIColor.green
+        view3.backgroundColor = UIColor.cyan
         self.stackView.addArrangedSubview(view3)
         view3.translatesAutoresizingMaskIntoConstraints = false
-        view3.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        view3.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        
+        let view4 = UIView()
+        view4.backgroundColor = UIColor.white
+        self.stackView.addArrangedSubview(view4)
+        view4.translatesAutoresizingMaskIntoConstraints = false
+        view4.heightAnchor.constraint(equalToConstant: 250).isActive = true
 
         
     }
