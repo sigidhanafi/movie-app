@@ -18,19 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-6U-LrC">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-6U-LrC">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="nZ4-az-pwf">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nZ4-az-pwf">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="nZ4-az-pwf" secondAttribute="trailing" id="Du6-Er-eWN"/>
-                                    <constraint firstAttribute="bottom" secondItem="nZ4-az-pwf" secondAttribute="bottom" id="IZu-Zn-gCG"/>
                                     <constraint firstItem="nZ4-az-pwf" firstAttribute="top" secondItem="xH1-6U-LrC" secondAttribute="top" id="K66-Vi-SIr"/>
-                                    <constraint firstItem="nZ4-az-pwf" firstAttribute="centerY" secondItem="xH1-6U-LrC" secondAttribute="centerY" id="TXz-st-VVQ"/>
-                                    <constraint firstItem="nZ4-az-pwf" firstAttribute="centerX" secondItem="xH1-6U-LrC" secondAttribute="centerX" id="lsf-zW-cof"/>
+                                    <constraint firstAttribute="bottom" secondItem="nZ4-az-pwf" secondAttribute="bottom" id="OdA-P4-EJK"/>
+                                    <constraint firstItem="nZ4-az-pwf" firstAttribute="centerX" secondItem="xH1-6U-LrC" secondAttribute="centerX" id="jq1-tf-lEw"/>
                                     <constraint firstItem="nZ4-az-pwf" firstAttribute="leading" secondItem="xH1-6U-LrC" secondAttribute="leading" id="pJ3-gf-GTK"/>
                                 </constraints>
                             </scrollView>
