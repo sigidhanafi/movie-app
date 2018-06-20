@@ -13,7 +13,7 @@
 		D8BA4AF420CFA301004C41E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4AF320CFA301004C41E7 /* Assets.xcassets */; };
 		D8BA4AF720CFA301004C41E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4AF520CFA301004C41E7 /* LaunchScreen.storyboard */; };
 		D8BA4B0220CFBE35004C41E7 /* TVShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4B0120CFBE35004C41E7 /* TVShowViewController.swift */; };
-		D8BA4B0420D16866004C41E7 /* MovieCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4B0320D16866004C41E7 /* MovieCardViewCell.swift */; };
+		D8EAF5C720DA8296009D6C2E /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EAF5C620DA8296009D6C2E /* View.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		D8BA4AF620CFA301004C41E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D8BA4AF820CFA301004C41E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8BA4B0120CFBE35004C41E7 /* TVShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowViewController.swift; sourceTree = "<group>"; };
-		D8BA4B0320D16866004C41E7 /* MovieCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardViewCell.swift; sourceTree = "<group>"; };
+		D8EAF5C620DA8296009D6C2E /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 		D8BA4AFF20CFBDE6004C41E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D8BA4B0320D16866004C41E7 /* MovieCardViewCell.swift */,
+				D8EAF5C620DA8296009D6C2E /* View.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -153,6 +153,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8EAF5C720DA8296009D6C2E /* View.xib in Resources */,
 				D8BA4AF720CFA301004C41E7 /* LaunchScreen.storyboard in Resources */,
 				D8BA4AF420CFA301004C41E7 /* Assets.xcassets in Resources */,
 				D8BA4AF220CFA301004C41E7 /* Main.storyboard in Resources */,
@@ -169,7 +170,6 @@
 				D8BA4AEF20CFA301004C41E7 /* MovieViewController.swift in Sources */,
 				D8BA4AED20CFA301004C41E7 /* AppDelegate.swift in Sources */,
 				D8BA4B0220CFBE35004C41E7 /* TVShowViewController.swift in Sources */,
-				D8BA4B0420D16866004C41E7 /* MovieCardViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
