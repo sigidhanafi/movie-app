@@ -35,7 +35,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xH1-6U-LrC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="BJT-sM-tju"/>
                             <constraint firstItem="xH1-6U-LrC" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Heb-bU-phm"/>

@@ -53,33 +53,50 @@ class MovieViewController: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 10
         
-        let uiCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-        uiCollectionView.register(UINib(nibName:"MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
-        uiCollectionView.delegate = self
-        uiCollectionView.dataSource = self
-        uiCollectionView.backgroundColor = UIColor.black
-        self.stackView.addArrangedSubview(uiCollectionView)
+        let popularCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        popularCollectionView.register(UINib(nibName:"MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
+        popularCollectionView.delegate = self
+        popularCollectionView.dataSource = self
+        popularCollectionView.backgroundColor = UIColor.black
+        popularCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        popularCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
+        self.stackView.addArrangedSubview(popularCollectionView)
         
-        uiCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        uiCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
+        let newestCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        newestCollectionView.register(UINib(nibName:"MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
+        newestCollectionView.delegate = self
+        newestCollectionView.dataSource = self
+        newestCollectionView.backgroundColor = UIColor.black
+        newestCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        newestCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
+        self.stackView.addArrangedSubview(newestCollectionView)
         
-        let view2 = UIView()
-        view2.backgroundColor = UIColor.cyan
-        self.stackView.addArrangedSubview(view2)
-        view2.translatesAutoresizingMaskIntoConstraints = false
-        view2.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        let relatedCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        relatedCollectionView.register(UINib(nibName:"MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
+        relatedCollectionView.delegate = self
+        relatedCollectionView.dataSource = self
+        relatedCollectionView.backgroundColor = UIColor.black
+        relatedCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        relatedCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
+        self.stackView.addArrangedSubview(relatedCollectionView)
         
-        let view3 = UIView()
-        view3.backgroundColor = UIColor.white
-        self.stackView.addArrangedSubview(view3)
-        view3.translatesAutoresizingMaskIntoConstraints = false
-        view3.heightAnchor.constraint(equalToConstant: 250).isActive = true
-        
-        let view4 = UIView()
-        view4.backgroundColor = UIColor.cyan
-        self.stackView.addArrangedSubview(view4)
-        view4.translatesAutoresizingMaskIntoConstraints = false
-        view4.heightAnchor.constraint(equalToConstant: 250).isActive = true
+//        let view2 = UIView()
+//        view2.backgroundColor = UIColor.cyan
+//        self.stackView.addArrangedSubview(view2)
+//        view2.translatesAutoresizingMaskIntoConstraints = false
+//        view2.heightAnchor.constraint(equalToConstant: 250).isActive = true
+//
+//        let view3 = UIView()
+//        view3.backgroundColor = UIColor.white
+//        self.stackView.addArrangedSubview(view3)
+//        view3.translatesAutoresizingMaskIntoConstraints = false
+//        view3.heightAnchor.constraint(equalToConstant: 250).isActive = true
+//
+//        let view4 = UIView()
+//        view4.backgroundColor = UIColor.cyan
+//        self.stackView.addArrangedSubview(view4)
+//        view4.translatesAutoresizingMaskIntoConstraints = false
+//        view4.heightAnchor.constraint(equalToConstant: 250).isActive = true
     }
 
 }
