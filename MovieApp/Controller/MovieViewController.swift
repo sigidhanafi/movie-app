@@ -46,19 +46,19 @@ class MovieViewController: UIViewController {
         uiCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
         
         let view2 = UIView()
-        view2.backgroundColor = UIColor.green
+        view2.backgroundColor = UIColor.cyan
         self.stackView.addArrangedSubview(view2)
         view2.translatesAutoresizingMaskIntoConstraints = false
         view2.heightAnchor.constraint(equalToConstant: 250).isActive = true
 
         let view3 = UIView()
-        view3.backgroundColor = UIColor.cyan
+        view3.backgroundColor = UIColor.white
         self.stackView.addArrangedSubview(view3)
         view3.translatesAutoresizingMaskIntoConstraints = false
         view3.heightAnchor.constraint(equalToConstant: 250).isActive = true
 
         let view4 = UIView()
-        view4.backgroundColor = UIColor.white
+        view4.backgroundColor = UIColor.cyan
         self.stackView.addArrangedSubview(view4)
         view4.translatesAutoresizingMaskIntoConstraints = false
         view4.heightAnchor.constraint(equalToConstant: 250).isActive = true
@@ -84,32 +84,4 @@ extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
 }
-
-//class MovieCell: UICollectionViewCell {
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        setupView()
-//    }
-//
-//    let wordLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "TEST TEST TEST"
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//
-//    func setupView() {
-//        backgroundColor = .yellow
-//
-//        addSubview(wordLabel)
-//        wordLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//        wordLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-//        wordLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-//        wordLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//}
 
