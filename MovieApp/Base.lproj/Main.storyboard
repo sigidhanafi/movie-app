@@ -26,6 +26,7 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="nZ4-az-pwf" firstAttribute="width" secondItem="xH1-6U-LrC" secondAttribute="width" id="2db-Ca-MMg"/>
                                     <constraint firstAttribute="trailing" secondItem="nZ4-az-pwf" secondAttribute="trailing" id="Du6-Er-eWN"/>
                                     <constraint firstItem="nZ4-az-pwf" firstAttribute="top" secondItem="xH1-6U-LrC" secondAttribute="top" id="K66-Vi-SIr"/>
                                     <constraint firstAttribute="bottom" secondItem="nZ4-az-pwf" secondAttribute="bottom" id="OdA-P4-EJK"/>
