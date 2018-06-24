@@ -86,7 +86,7 @@ class MovieViewController: UIViewController {
                 for (_, resultDict) in responseResults {
                     let id = resultDict["id"].stringValue
                     let title = resultDict["title"].stringValue
-                    let image = "jurassic-park"
+                    let image = resultDict["poster_path"].stringValue
                     let dataMovie = Movie(id: id, title: title, image: image)
                     self.popularMovies.append(dataMovie)
                 }
@@ -101,13 +101,11 @@ class MovieViewController: UIViewController {
             switch result {
             case .success(let response):
                 let responseJSON = JSON(response.data)
-                print(responseJSON)
                 let responseResults = responseJSON["results"]
-                print(responseResults)
                 for (_, resultDict) in responseResults {
                     let id = resultDict["id"].stringValue
                     let title = resultDict["title"].stringValue
-                    let image = "jurassic-park"
+                    let image = resultDict["poster_path"].stringValue
                     let dataMovie = Movie(id: id, title: title, image: image)
                     self.upcomingMovies.append(dataMovie)
                 }
@@ -126,7 +124,7 @@ class MovieViewController: UIViewController {
                 for (_, resultDict) in responseResults {
                     let id = resultDict["id"].stringValue
                     let title = resultDict["title"].stringValue
-                    let image = "jurassic-park"
+                    let image = resultDict["poster_path"].stringValue
                     let dataMovie = Movie(id: id, title: title, image: image)
                     self.topRatedMovies.append(dataMovie)
                 }
@@ -167,21 +165,48 @@ extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSou
             let title = self.popularMovies[indexPath.row].title
             let image = self.popularMovies[indexPath.row].image
             cell.titleLabel.text = title
-            cell.coverImage.image = UIImage(named: "\(image)")
+            let imageUrl = "https://image.tmdb.org/t/p/w185/\(image)"
+            if let url = URL(string: imageUrl) {
+                downloadImage(url: url, onComplete: { (data) in
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data)
+                        cell.coverImage.image = image
+                    }
+                })
+            }
+
             return cell
         case self.upcomingCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
             let title = self.upcomingMovies[indexPath.row].title
             let image = self.upcomingMovies[indexPath.row].image
             cell.titleLabel.text = title
-            cell.coverImage.image = UIImage(named: "\(image)")
+            let imageUrl = "https://image.tmdb.org/t/p/w185/\(image)"
+            if let url = URL(string: imageUrl) {
+                downloadImage(url: url, onComplete: { (data) in
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data)
+                        cell.coverImage.image = image
+                    }
+                })
+            }
+            
             return cell
         case self.topRatedCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
             let title = self.topRatedMovies[indexPath.row].title
             let image = self.topRatedMovies[indexPath.row].image
             cell.titleLabel.text = title
-            cell.coverImage.image = UIImage(named: "\(image)")
+            let imageUrl = "https://image.tmdb.org/t/p/w185/\(image)"
+            if let url = URL(string: imageUrl) {
+                downloadImage(url: url, onComplete: { (data) in
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data)
+                        cell.coverImage.image = image
+                    }
+                })
+            }
+            
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
@@ -192,12 +217,19 @@ extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return cell
         }
         
-//        title = popularMovies[indexPath.row].title
-//        image = popularMovies[indexPath.row].image
-//        cell.titleLabel.text = title
-//        cell.coverImage.image = UIImage(named: "\(image)")
-        
-        
+    }
+    
+    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
+    }
+    
+    func downloadImage(url: URL, onComplete: @escaping ((Data) -> Void)) {
+        getDataFromUrl(url: url) { data, response, error in
+            guard let data = data else { return }
+            onComplete(data)
+        }
     }
     
 }
