@@ -13,22 +13,23 @@ var apiKey = "9d2a61648c32785276abeaee4471a2f9"
 
 enum NetworkProvider {
     case popular
+    case latest
+    case topRated
 }
 
 extension NetworkProvider: TargetType {
     var baseURL: URL {
-        switch self {
-        case .popular:
-            return URL(string: "https://api.themoviedb.org/3/movie")!
-        default:
-            return URL(string: "https://api.themoviedb.org/3/movie")!
-        }
+        return URL(string: "https://api.themoviedb.org/3/movie")!
     }
     
     var path: String {
         switch self {
         case .popular:
             return "/popular"
+        case .latest:
+            return "/latest"
+        case .topRated:
+            return "/top_rated"
         default:
             return ""
         }
@@ -42,12 +43,20 @@ extension NetworkProvider: TargetType {
         switch self {
         case .popular:
             return .get
+        case .latest:
+            return .get
+        case .topRated:
+            return .get
         }
     }
     
     var task: Task {
         switch self {
         case .popular:
+            return .requestParameters(parameters: ["api_key": apiKey, "language": "en", "page": "1"], encoding: URLEncoding.queryString)
+        case .latest:
+            return .requestParameters(parameters: ["api_key": apiKey, "language": "en"], encoding: URLEncoding.queryString)
+        case .topRated:
             return .requestParameters(parameters: ["api_key": apiKey, "language": "en", "page": "1"], encoding: URLEncoding.queryString)
         default:
             return .requestPlain
