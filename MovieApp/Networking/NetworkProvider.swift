@@ -13,7 +13,7 @@ var apiKey = "9d2a61648c32785276abeaee4471a2f9"
 
 enum NetworkProvider {
     case popular
-    case latest
+    case upcoming
     case topRated
 }
 
@@ -26,8 +26,8 @@ extension NetworkProvider: TargetType {
         switch self {
         case .popular:
             return "/popular"
-        case .latest:
-            return "/latest"
+        case .upcoming:
+            return "/upcoming"
         case .topRated:
             return "/top_rated"
         default:
@@ -43,7 +43,7 @@ extension NetworkProvider: TargetType {
         switch self {
         case .popular:
             return .get
-        case .latest:
+        case .upcoming:
             return .get
         case .topRated:
             return .get
@@ -54,7 +54,7 @@ extension NetworkProvider: TargetType {
         switch self {
         case .popular:
             return .requestParameters(parameters: ["api_key": apiKey, "language": "en", "page": "1"], encoding: URLEncoding.queryString)
-        case .latest:
+        case .upcoming:
             return .requestParameters(parameters: ["api_key": apiKey, "language": "en"], encoding: URLEncoding.queryString)
         case .topRated:
             return .requestParameters(parameters: ["api_key": apiKey, "language": "en", "page": "1"], encoding: URLEncoding.queryString)

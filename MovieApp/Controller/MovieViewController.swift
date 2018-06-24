@@ -17,11 +17,11 @@ class MovieViewController: UIViewController {
     
     var popularCollectionView: UICollectionView!
     var topRatedCollectionView: UICollectionView!
-    var latestCollectionView: UICollectionView!
+    var upcomingCollectionView: UICollectionView!
     
     var popularMovies = [Movie]()
     var topRatedMovies = [Movie]()
-    var latestMovies = [Movie]()
+    var upcomingMovies = [Movie]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,14 +56,14 @@ class MovieViewController: UIViewController {
         popularCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
         self.stackView.addArrangedSubview(popularCollectionView)
         
-        latestCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-        latestCollectionView.register(UINib(nibName:"MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
-        latestCollectionView.delegate = self
-        latestCollectionView.dataSource = self
-        latestCollectionView.backgroundColor = UIColor.black
-        latestCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        latestCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
-        self.stackView.addArrangedSubview(latestCollectionView)
+        upcomingCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        upcomingCollectionView.register(UINib(nibName:"MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
+        upcomingCollectionView.delegate = self
+        upcomingCollectionView.dataSource = self
+        upcomingCollectionView.backgroundColor = UIColor.black
+        upcomingCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        upcomingCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
+        self.stackView.addArrangedSubview(upcomingCollectionView)
         
         topRatedCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
         topRatedCollectionView.register(UINib(nibName:"MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
@@ -97,25 +97,27 @@ class MovieViewController: UIViewController {
             }
         }
         
-        provider.request(.latest) { result in
+        provider.request(.upcoming) { result in
             switch result {
             case .success(let response):
                 let responseJSON = JSON(response.data)
+                print(responseJSON)
                 let responseResults = responseJSON["results"]
+                print(responseResults)
                 for (_, resultDict) in responseResults {
                     let id = resultDict["id"].stringValue
                     let title = resultDict["title"].stringValue
                     let image = "jurassic-park"
                     let dataMovie = Movie(id: id, title: title, image: image)
-                    self.latestMovies.append(dataMovie)
+                    self.upcomingMovies.append(dataMovie)
                 }
-                self.latestCollectionView.reloadData()
-                
+                self.upcomingCollectionView.reloadData()
+
             case .failure(let error):
                 print(error)
             }
         }
-        
+
         provider.request(.topRated) { result in
             switch result {
             case .success(let response):
@@ -129,7 +131,7 @@ class MovieViewController: UIViewController {
                     self.topRatedMovies.append(dataMovie)
                 }
                 self.topRatedCollectionView.reloadData()
-                
+
             case .failure(let error):
                 print(error)
             }
@@ -146,42 +148,56 @@ extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
-        case popularCollectionView:
-            return popularMovies.count
-        case latestCollectionView:
-            return latestMovies.count
-        case topRatedCollectionView:
-            return topRatedMovies.count
+        case self.popularCollectionView:
+            return self.popularMovies.count
+        case self.upcomingCollectionView:
+            return self.upcomingMovies.count
+        case self.topRatedCollectionView:
+            return self.topRatedMovies.count
         default:
             return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
-        
-        var title: String
-        var image: String
-        
+
         switch collectionView {
-        case popularCollectionView:
-            title = popularMovies[indexPath.row].title
-            image = popularMovies[indexPath.row].image
-        case latestCollectionView:
-            title = latestMovies[indexPath.row].title
-            image = latestMovies[indexPath.row].image
-        case topRatedCollectionView:
-            title = topRatedMovies[indexPath.row].title
-            image = topRatedMovies[indexPath.row].image
+        case self.popularCollectionView:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
+            let title = self.popularMovies[indexPath.row].title
+            let image = self.popularMovies[indexPath.row].image
+            cell.titleLabel.text = title
+            cell.coverImage.image = UIImage(named: "\(image)")
+            return cell
+        case self.upcomingCollectionView:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
+            let title = self.upcomingMovies[indexPath.row].title
+            let image = self.upcomingMovies[indexPath.row].image
+            cell.titleLabel.text = title
+            cell.coverImage.image = UIImage(named: "\(image)")
+            return cell
+        case self.topRatedCollectionView:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
+            let title = self.topRatedMovies[indexPath.row].title
+            let image = self.topRatedMovies[indexPath.row].image
+            cell.titleLabel.text = title
+            cell.coverImage.image = UIImage(named: "\(image)")
+            return cell
         default:
-            title = ""
-            image = ""
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
+            let title = ""
+            let image = ""
+            cell.titleLabel.text = title
+            cell.coverImage.image = UIImage(named: "\(image)")
+            return cell
         }
         
-        cell.titleLabel.text = title
-        cell.coverImage.image = UIImage(named: "\(image)")
+//        title = popularMovies[indexPath.row].title
+//        image = popularMovies[indexPath.row].image
+//        cell.titleLabel.text = title
+//        cell.coverImage.image = UIImage(named: "\(image)")
         
-        return cell
+        
     }
     
 }
