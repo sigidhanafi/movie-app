@@ -7,35 +7,27 @@
 //
 
 import UIKit
+import Moya
+import SwiftyJSON
 
 class MovieViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     
+    var popularCollectionView: UICollectionView!
+    
     var sections = [String]()
     var movie = [String: String]()
-    var movies = [[String: String]]()
+    var movies = [Movie]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Movies"
-        
-        let movie1: [String: String] = ["title": "Jurassic Park", "image": "jurassic-park"]
-        movies.append(movie1)
-        let movie2: [String: String] = ["title": "Jurassic World", "image": "jurassic-world"]
-        movies.append(movie2)
-        let movie3: [String: String] = ["title": "The Lost World", "image": "the-lost-world"]
-        movies.append(movie3)
-        let movie4: [String: String] = ["title": "Jurassic Park", "image": "jurassic-park"]
-        movies.append(movie4)
-        let movie5: [String: String] = ["title": "Jurassic World", "image": "jurassic-world"]
-        movies.append(movie5)
-        let movie6: [String: String] = ["title": "The Lost World", "image": "the-lost-world"]
-        movies.append(movie6)
-    
+
         self.setupView()
+        self.loadData()
         
     }
     
@@ -53,7 +45,7 @@ class MovieViewController: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 10
         
-        let popularCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        popularCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
         popularCollectionView.register(UINib(nibName:"MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
         popularCollectionView.delegate = self
         popularCollectionView.dataSource = self
@@ -79,24 +71,30 @@ class MovieViewController: UIViewController {
         relatedCollectionView.translatesAutoresizingMaskIntoConstraints = false
         relatedCollectionView.heightAnchor.constraint(equalToConstant: layout.itemSize.height + 20).isActive = true
         self.stackView.addArrangedSubview(relatedCollectionView)
-        
-//        let view2 = UIView()
-//        view2.backgroundColor = UIColor.cyan
-//        self.stackView.addArrangedSubview(view2)
-//        view2.translatesAutoresizingMaskIntoConstraints = false
-//        view2.heightAnchor.constraint(equalToConstant: 250).isActive = true
-//
-//        let view3 = UIView()
-//        view3.backgroundColor = UIColor.white
-//        self.stackView.addArrangedSubview(view3)
-//        view3.translatesAutoresizingMaskIntoConstraints = false
-//        view3.heightAnchor.constraint(equalToConstant: 250).isActive = true
-//
-//        let view4 = UIView()
-//        view4.backgroundColor = UIColor.cyan
-//        self.stackView.addArrangedSubview(view4)
-//        view4.translatesAutoresizingMaskIntoConstraints = false
-//        view4.heightAnchor.constraint(equalToConstant: 250).isActive = true
+
+    }
+    
+    func loadData() {
+        let provider = MoyaProvider<NetworkProvider>()
+        provider.request(.popular) { result in
+            switch result {
+            case .success(let response):
+                let responseJSON = JSON(response.data)
+                let responseResults = responseJSON["results"]
+                print(responseJSON)
+                for (_, resultDict) in responseResults {
+                    let id = resultDict["id"].stringValue
+                    let title = resultDict["title"].stringValue
+                    let image = "jurassic-park"
+                    let dataMovie = Movie(id: id, title: title, image: image)
+                    self.movies.append(dataMovie)
+                }
+                self.popularCollectionView.reloadData()
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
 }
@@ -113,14 +111,10 @@ extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
-        
-        if let title = movies[indexPath.row]["title"] {
-            cell.titleLabel.text = title
-        }
-        
-        if let image = movies[indexPath.row]["image"] {
-            cell.coverImage.image = UIImage(named: "\(image)")
-        }
+        let title = movies[indexPath.row].title
+        let image = movies[indexPath.row].image
+        cell.titleLabel.text = title
+        cell.coverImage.image = UIImage(named: "\(image)")
         
         return cell
     }
