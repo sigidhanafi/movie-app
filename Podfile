@@ -7,6 +7,7 @@ target 'MovieApp' do
 
   # Pods for MovieApp
   pod 'Moya', '~> 11.0'
-  pod 'SwiftyJSON'
+  pod 'SwiftyJSON', '4.2.0'
+  pod 'Texture', '2.8'
 
 end
