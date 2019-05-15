@@ -33,22 +33,24 @@ class MovieCardCell: ASCellNode {
             NSAttributedString.Key.foregroundColor: UIColor.white
             ])
         
-        titleTextNode.maximumNumberOfLines = 3
+        titleTextNode.maximumNumberOfLines = 2
         
         movieImageNode.setURL(URL(string: imageUrl), resetToDefault: false)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         cardNode.style.width = ASDimensionMake(constrainedSize.max.width / 2 - 4)
-        cardNode.style.height = ASDimensionMake(350)
+        cardNode.style.height = ASDimensionMake(330)
         
         movieImageNode.style.width = ASDimensionMake(constrainedSize.max.width / 2)
         movieImageNode.style.height = ASDimensionMake(280)
         movieImageNode.contentMode = .scaleAspectFill
         
         cardNode.layoutSpecBlock = { (_, _) -> ASLayoutSpec in
+            let titleTextInsetWrapper = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8), child: self.titleTextNode)
+            
             let verticalNodeWrapper = ASStackLayoutSpec.vertical()
-            verticalNodeWrapper.children = [self.movieImageNode, self.titleTextNode]
+            verticalNodeWrapper.children = [self.movieImageNode, titleTextInsetWrapper]
             
             return verticalNodeWrapper
         }

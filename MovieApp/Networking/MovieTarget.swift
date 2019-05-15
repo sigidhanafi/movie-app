@@ -1,5 +1,5 @@
 //
-//  NetworkProvider.swift
+//  MovieTarget.swift
 //  MovieApp
 //
 //  Created by Sigit Hanafi on 24/06/18.
@@ -11,13 +11,13 @@ import Moya
 
 var apiKey = "9d2a61648c32785276abeaee4471a2f9"
 
-enum NetworkProvider {
-    case popular
+enum MovieTarget {
+    case popular(page: String)
     case upcoming
     case topRated
 }
 
-extension NetworkProvider: TargetType {
+extension MovieTarget: TargetType {
     var baseURL: URL {
         return URL(string: "https://api.themoviedb.org/3/movie")!
     }
@@ -52,8 +52,8 @@ extension NetworkProvider: TargetType {
     
     var task: Task {
         switch self {
-        case .popular:
-            return .requestParameters(parameters: ["api_key": apiKey, "language": "en", "page": "1"], encoding: URLEncoding.queryString)
+        case let .popular(page):
+            return .requestParameters(parameters: ["api_key": apiKey, "language": "en", "page": page], encoding: URLEncoding.queryString)
         case .upcoming:
             return .requestParameters(parameters: ["api_key": apiKey, "language": "en"], encoding: URLEncoding.queryString)
         case .topRated:
