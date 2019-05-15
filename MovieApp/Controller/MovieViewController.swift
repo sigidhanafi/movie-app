@@ -56,6 +56,15 @@ class MovieViewController: ASViewController<ASDisplayNode> {
         }
     }
     
+    func loadData() {
+        let useCase = DefaultMovieUseCase()
+        useCase.loadPopular(page: "1") { (response) in
+            let results = response.results
+            self.movies = results
+            self.movieCollectionView.reloadData()
+        }
+    }
+    
 }
 
 extension MovieViewController: ASCollectionDelegate, ASCollectionDataSource {
@@ -75,15 +84,6 @@ extension MovieViewController: ASCollectionDelegate, ASCollectionDataSource {
         
         return {
             return cell
-        }
-    }
-
-    func loadData() {
-        let useCase = DefaultMovieUseCase()
-        useCase.loadPopular(page: "1") { (response) in
-            let results = response.results
-            self.movies = results
-            self.movieCollectionView.reloadData()
         }
     }
 }
